@@ -13,7 +13,7 @@ function WeatherInformations5Days({ weather5Days }) {
     }
   }
 
-  const next5DaysForecast = Object.values(dailyForecast);
+  const next5DaysForecast = Object.values(dailyForecast).slice(1,6);
 
   function converteDate(date) {
     const newDate = new Date(date.dt * 1000).toLocaleDateString("pt-BR", {
@@ -38,8 +38,8 @@ function WeatherInformations5Days({ weather5Days }) {
               {forecast.weather[0].description}
             </p>
             <p>
-              {Math.round(forecast.main.temp_min)}°C min /{" "}
-              {Math.round(forecast.main.temp_max)}°C max
+              {Math.round(forecast.main.temp_min)}°C min 
+              
             </p>
           </div>
         ))}
