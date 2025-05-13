@@ -8,7 +8,9 @@ function App() {
   const [weather, setWeather] = useState();
   const [weather5Days, setWeather5Days] = useState();
   const [errorMessage, setErrorMessage] = useState("");
-  const [isInitial, setIsInitial] = useState(true); // Controla a mudança de cidade
+  // eslint-disable-next-line no-unused-vars
+  const [isInitial, setIsInitial] = useState(true);
+
   const inputRef = useRef();
   const key = "6c7108b69a4bc532d81efe7d1e34e666";
 
@@ -21,29 +23,10 @@ function App() {
       "Belo Horizonte",
       "Salvador",
     ];
+    const cidadeAleatoria = cidades[Math.floor(Math.random() * cidades.length)];
 
-    let intervalId;
-
-    // Função que busca uma cidade aleatória
-    function buscarAleatoria() {
-      const cidadeAleatoria =
-        cidades[Math.floor(Math.random() * cidades.length)];
-      buscarCidade(cidadeAleatoria);
-    }
-
-    // Busca a primeira cidade ao abrir a página
-    buscarAleatoria();
-
-    // Começa a trocar de cidade a cada 5 segundos se for o estado inicial
-    if (isInitial) {
-      intervalId = setInterval(() => {
-        buscarAleatoria();
-      }, 5000);
-    }
-
-    // Cleanup: Se o componente for desmontado ou o estado inicial mudar, o intervalo é limpo
-    return () => clearInterval(intervalId);
-  }, [isInitial]); // roda novamente se isInitial mudar
+    buscarCidade(cidadeAleatoria);
+  }, []);
 
   // Função principal para buscar a cidade
   async function buscarCidade(cidadeDigitada) {
@@ -59,11 +42,13 @@ function App() {
       setWeather(apiInfo.data);
       setWeather5Days(apiInfo5Days.data);
       setErrorMessage("");
-      setIsInitial(false); // Após a primeira busca, desativa a troca de cidades automáticas
+      setIsInitial(false);
 
       if (!cidadeDigitada) {
         inputRef.current.value = "";
       }
+
+      // eslint-disable-next-line no-unused-vars
     } catch (error) {
       setWeather(null);
       setWeather5Days(null);
@@ -93,12 +78,13 @@ function App() {
       {errorMessage && (
         <p
           style={{
-            color: "white",
+            color: " white",
             marginTop: "10px",
             fontWeight: "bold",
-            borderBottom: "2px solid #f57c00",
+            borderBottom: "2px solid  #f57c00",
             display: "inline-block",
             paddingTop: "100px",
+            fontSize: "35px",
           }}
         >
           {errorMessage}
